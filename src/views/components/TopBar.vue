@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
       app
-      color="#5d84b1"
+      color="#2089B7"
       dark
   >
     <div class="d-flex align-center">
@@ -23,6 +23,6 @@
 
 <script>
   export default {
-    name: 'HelloWorld'
+    name: 'TopBar'
   }
 </script>
