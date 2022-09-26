@@ -15,7 +15,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn icon class="mr-2">
+    <v-btn icon class="mr-2" @click="redirectToHome()">
       <v-icon>mdi-home</v-icon>
     </v-btn>
   </v-app-bar>
@@ -23,6 +23,11 @@
 
 <script>
   export default {
-    name: 'TopBar'
+    name: 'TopBar',
+    methods: {
+      redirectToHome() {
+        this.$router.push('/')
+      }
+    }
   }
 </script>
