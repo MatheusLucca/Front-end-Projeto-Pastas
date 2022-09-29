@@ -14,7 +14,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field hide-details outlined></v-text-field>
+            <v-text-field v-model="article.title" hide-details outlined></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -24,7 +24,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field hide-details outlined></v-text-field>
+            <v-text-field v-model="article.abstract" hide-details outlined></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -34,7 +34,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field hide-details outlined></v-text-field>
+            <v-text-field v-model="article.keywords" hide-details outlined></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -50,7 +50,7 @@
       </div>
       <v-row>
         <v-col>
-          <v-btn width="150" color="green" class="white--text">submit</v-btn>
+          <v-btn width="150" color="green" class="white--text" @click="insertArticle()">submit</v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -59,7 +59,26 @@
 
 <script>
 export default {
-  name: "article"
+  name: "article",
+  data() {
+    return {
+      article: {
+        title: '',
+        abstract: '',
+        keywords: ''
+      }
+    }
+  },
+  methods: {
+    insertArticle() {
+      this.articles.push(this.article)
+    }
+  },
+  computed: {
+    articles() {
+      return this.$store.state.project.articles
+    }
+  }
 }
 </script>
 

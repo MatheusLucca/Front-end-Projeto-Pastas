@@ -14,7 +14,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field hide-details outlined></v-text-field>
+            <v-text-field hide-details outlined v-model="project.username"></v-text-field>
           </v-col>
         </v-row>
         <v-row>
@@ -24,7 +24,7 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field hide-details outlined></v-text-field>
+            <v-text-field hide-details outlined v-model="project.numberOfArticles"></v-text-field>
           </v-col>
         </v-row>
       </div>
@@ -40,5 +40,10 @@
 
 export default {
   name: 'Home',
+  computed: {
+    project() {
+      return this.$store.state.project
+    }
+  }
 }
 </script>
