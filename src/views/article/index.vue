@@ -43,7 +43,7 @@
           </v-col>
         </v-row>
         <v-row align="center">
-          <v-col cols="auto">
+          <v-col cols="auto" class="mt-n4">
             <v-file-input v-model="article.file" hide-details hide-input outlined></v-file-input>
           </v-col>
           <v-col>
@@ -55,10 +55,9 @@
         <v-btn width="150" color="grey" outlined @click="redirectToPrevious()" :disabled="!canGoToPrevious()">previous
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn width="150" color="green" class="white--text" @click="insertArticle()" :disabled="!canGoNext()">next
-        </v-btn>
+        <v-btn v-if="shouldReview()" width="150" color="green" class="white--text" @click="redirectToReview()" :disabled="!canGoNext()">review</v-btn>
+        <v-btn v-else width="150" color="green" class="white--text" @click="insertArticle()" :disabled="!canGoNext()">next</v-btn>
       </v-card-actions>
-      {{shouldInsert()}}
     </v-card>
   </v-container>
 </template>
@@ -98,6 +97,13 @@ export default {
       this.project.currentArticle -= 1
       this.article = this.project.articles[this.project.currentArticle]
     },
+    redirectToReview() {
+      if (this.shouldInsert()) {
+        this.article.file = this.article.file.name
+        this.project.articles.push(this.article)
+      }
+      this.$router.push('/review')
+    },
     canGoToPrevious() {
       return this.project.currentArticle > 0
     },
@@ -116,6 +122,9 @@ export default {
     },
     shouldInsert() {
       return this.article !== this.project.articles[this.project.currentArticle]
+    },
+    shouldReview() {
+      return (this.project.currentArticle + 1) == this.project.numberOfArticles
     }
   },
   computed: {
