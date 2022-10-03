@@ -55,8 +55,12 @@
         <v-btn width="150" color="grey" outlined @click="redirectToPrevious()" :disabled="!canGoToPrevious()">previous
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn v-if="shouldReview()" width="150" color="green" class="white--text" @click="redirectToReview()" :disabled="!canGoNext()">review</v-btn>
-        <v-btn v-else width="150" color="green" class="white--text" @click="insertArticle()" :disabled="!canGoNext()">next</v-btn>
+        <v-btn v-if="shouldReview()" width="150" color="green" class="white--text" @click="redirectToReview()"
+               :disabled="!canGoNext()">review
+        </v-btn>
+        <v-btn v-else width="150" color="green" class="white--text" @click="insertArticle()" :disabled="!canGoNext()">
+          next
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -131,7 +135,12 @@ export default {
     project() {
       return this.$store.state.project
     }
-  }
+  },
+  created() {
+    if (this.project.articles[this.project.currentArticle]) {
+      this.article = this.project.articles[this.project.currentArticle]
+    }
+  },
 }
 </script>
 
