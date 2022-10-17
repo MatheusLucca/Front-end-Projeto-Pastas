@@ -1,7 +1,8 @@
 export default {
     project: {
         username: '',
-        numberOfArticles: 0,
-        articles: []
+        numberOfArticles: null,
+        articles: [],
+        currentArticle: 0
     }
 }

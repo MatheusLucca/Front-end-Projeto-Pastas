@@ -29,7 +29,7 @@
         </v-row>
       </div>
       <div class="d-flex">
-        <v-btn width="150" color="green" class="white--text">submit</v-btn>
+        <v-btn width="150" color="green" class="white--text" @click="redirectToArticle()" :disabled="!canSubmit()">submit</v-btn>
         <v-spacer></v-spacer>
       </div>
     </v-card>
@@ -40,6 +40,14 @@
 
 export default {
   name: 'Home',
+  methods: {
+    redirectToArticle(){
+      this.$router.push('/article')
+    },
+    canSubmit() {
+      return this.project.numberOfArticles && this.project.username
+    }
+  },
   computed: {
     project() {
       return this.$store.state.project
