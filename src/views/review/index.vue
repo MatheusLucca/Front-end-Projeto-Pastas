@@ -15,7 +15,7 @@
         </v-data-table>
       </div>
       <div class="d-flex">
-        <v-btn width="150" color="green" class="white--text">submit</v-btn>
+        <v-btn width="150" color="green" class="white--text" @click="submit()">submit</v-btn>
         <v-spacer></v-spacer>
       </div>
     </v-card>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import ApiClient from "@/commons/apiclient/ApiClient";
+
 export default {
   name: "index",
   data() {
@@ -53,6 +55,23 @@ export default {
           value: 'file',
         },
       ],
+    }
+  },
+  methods: {
+    async submit() {
+      await this.createDirectory()
+      await this.populateDirectory()
+    },
+    async createDirectory() {
+      await ApiClient.generateDirectoryTree(this.project.username)
+    },
+    async populateDirectory() {
+      for (let i = 0; i < this.project.articles.length; i++) {
+        let article = this.project.articles[i]
+        let file = this.project.articles[i].file
+        await ApiClient.convert2txt(i+1, file.substring(0, file.length-4))
+        await ApiClient.populateDirectoryTree(i+1, article.title, article.abstract, article.keywords)
+      }
     }
   },
   computed: {
