@@ -15,7 +15,8 @@
         </v-data-table>
       </div>
       <div class="d-flex">
-        <v-btn width="150" color="green" class="white--text" @click="submit()">submit</v-btn>
+        <v-btn v-if="!shouldShowDownload" width="150" color="green" class="white--text" @click="submit()">submit</v-btn>
+        <v-btn v-else width="150" color="green" class="white--text" @click="download()">download</v-btn>
         <v-spacer></v-spacer>
       </div>
     </v-card>
@@ -24,11 +25,13 @@
 
 <script>
 import ApiClient from "@/commons/apiclient/ApiClient";
+import { saveAs } from 'file-saver';
 
 export default {
   name: "index",
   data() {
     return {
+      shouldShowDownload: false,
       headers: [
         {
           text: 'Title',
@@ -61,6 +64,7 @@ export default {
     async submit() {
       await this.createDirectory()
       await this.populateDirectory()
+      this.shouldShowDownload = true
     },
     async createDirectory() {
       await ApiClient.generateDirectoryTree(this.project.username)
@@ -69,9 +73,12 @@ export default {
       for (let i = 0; i < this.project.articles.length; i++) {
         let article = this.project.articles[i]
         let file = this.project.articles[i].file
-        await ApiClient.convert2txt(i+1, file.substring(0, file.length-4))
-        await ApiClient.populateDirectoryTree(i+1, article.title, article.abstract, article.keywords)
+        let id = await ApiClient.convert2txt(file)
+        await ApiClient.populateDirectoryTree(id.id, article.title, article.abstract, article.keywords)
       }
+    },
+    async download() {
+      window.open('http://localhost:3000/api/download')
     }
   },
   computed: {

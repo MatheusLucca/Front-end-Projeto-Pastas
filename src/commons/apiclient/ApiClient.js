@@ -9,12 +9,12 @@ class ApiClient {
         return (await instance.post(`/api/directories/populate-directory-tree?id=${id}&title=${title}&abstract=${abstract}&keyword=${keyword}`)).data
     }
 
-    async convert2txt(id, path) {
-        return (await instance.post(`/api/pdf/convert/to-txt?id=${id}&path=${path}`)).data
+    async convert2txt(path) {
+        return (await instance.post(`/api/pdf/convert/to-txt?path=${path}`)).data
     }
 
     async downloadDirectory(){
-        return (await instance.get(`/api/download`)).data
+        return (await instance.get(`/api/download`, {responseType:'blob'})).data
     }
 
     async deleteDirectory(){

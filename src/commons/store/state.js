@@ -3,6 +3,7 @@ export default {
         username: '',
         numberOfArticles: null,
         articles: [],
-        currentArticle: 0
+        currentArticle: 0,
+        shouldShowDialog: false
     }
 }
