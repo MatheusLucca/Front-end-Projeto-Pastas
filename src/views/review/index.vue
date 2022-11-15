@@ -25,7 +25,6 @@
 
 <script>
 import ApiClient from "@/commons/apiclient/ApiClient";
-import { saveAs } from 'file-saver';
 
 export default {
   name: "index",
