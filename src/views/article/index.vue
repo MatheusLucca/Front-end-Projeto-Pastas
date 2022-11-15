@@ -44,7 +44,7 @@
         </v-row>
         <v-row align="center">
           <v-col cols="auto" class="mt-n4">
-            <v-file-input v-model="article.file" hide-details hide-input outlined></v-file-input>
+            <v-file-input v-model="article.file" hide-details hide-input outlined accept="application/pdf"></v-file-input>
           </v-col>
           <v-col>
             {{ (article.file.name != null) ? article.file.name : article.file }}
