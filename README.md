@@ -30,3 +30,5 @@ npm run serve
 ```
 http://localhost:8080
 ```
+#link do video: https://www.youtube.com/watch?v=h-k-Vl7shOw
+
